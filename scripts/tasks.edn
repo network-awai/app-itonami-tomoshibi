@@ -13,4 +13,4 @@
 
  :test
  {:cmd ["kbb" "-M:siblings:test"]
-  :doc "Run the full offline test suite (run_tests.cljk). Needs the west siblings orgs/kotoba-lang/{kotodama,mail,mailer,langgraph} and orgs/etzhayyim/root, wired by the :test alias."}}
+  :doc "Run the full offline test suite (run_tests.cljk). Needs the west siblings orgs/kotoba-lang/{kotodama,mail,mailer,langgraph} and orgs/itonami/root, wired by the :test alias."}}

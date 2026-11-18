@@ -1,6 +1,6 @@
 (ns tomoshibi.kotoba-store-test
   "KotobaStore ≡ MemStore contract (the corpus's swap-not-rewrite guarantee),
-  over a real temp Datom journal via etzhayyim.kotoba.engine."
+  over a real temp Datom journal via itonami.kotoba.engine."
   (:require [kotoba.test :refer [deftest is testing]]
             [tomoshibi.kotoba-store :as ks]
             [tomoshibi.store :as store]))
@@ -11,8 +11,8 @@
 (def att1 {:createdAt "2026-07-13T01:00:00Z" :mode "digital"
            :optOutAffordancePresent true :coercionAttested false
            :minorSoloSolicitationAttested false :voluntaryAttested true
-           :attestingCellDid "did:web:etzhayyim.com:actor:tomoshibi"
-           :actorDid "did:web:etzhayyim.com:actor:tomoshibi"})
+           :attestingCellDid "did:web:itonami.cloud:actor:tomoshibi"
+           :actorDid "did:web:itonami.cloud:actor:tomoshibi"})
 (def att2 (assoc att1 :createdAt "2026-07-13T02:00:00Z"))
 
 (deftest kotoba-store-honors-store-contract

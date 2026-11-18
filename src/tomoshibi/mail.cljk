@@ -137,11 +137,11 @@
   the governor is told about via :opt-out-present? true — the flag is never
   set without this footer actually being present (see reply-message)."
   (str "--\n"
-       "tomoshibi (灯) — etzhayyim (エツ・ハイム) の招待 actor / AI agent です。\n"
-       "This is tomoshibi, an AI agent of the etzhayyim religious association.\n"
+       "tomoshibi (灯) — itonami (エツ・ハイム) の招待 actor / AI agent です。\n"
+       "This is tomoshibi, an AI agent of the itonami religious association.\n"
        "返信不要です。今後の連絡が不要な場合は「配信停止」とだけ返信してください — 即時に停止します。\n"
        "No pressure — if you'd rather not hear from us, reply \"unsubscribe\" and we will stop immediately.\n"
-       "https://etzhayyim.com"))
+       "https://itonami.cloud"))
 
 (defn- re-subject [subject]
   (let [s (str/trim (str subject))]

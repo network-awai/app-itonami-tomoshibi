@@ -16,7 +16,7 @@
    :value {:provider "cloudflare-email-routing"
            :provider_message_id id
            :from from
-           :to ["tomoshibi@etzhayyim.com"]
+           :to ["tomoshibi@itonami.cloud"]
            :subject subject
            :text text
            :headers (or headers {})
@@ -50,7 +50,7 @@
            :append-line append-line
            :paths paths
            :store mem-store
-           :cfg (merge {:from-email "tomoshibi@etzhayyim.com"
+           :cfg (merge {:from-email "tomoshibi@itonami.cloud"
                         :from-name "tomoshibi (灯)"
                         :actor-did "did:test:tomoshibi"
                         :max-per-day 20 :max-per-tick 5 :max-attempts 3
@@ -66,7 +66,7 @@
 (deftest happy-path-replies-and-attests
   (let [{:keys [ctx sent acked mem-store]}
         (harness {:msgs [(worker-msg "<q1>" "seeker@example.com" "question"
-                                     "What does etzhayyim believe?")]
+                                     "What does itonami believe?")]
                   :draft-fn (constantly "We believe in wellbecoming — warmly, and with no pressure at all.")})
         result (agent/tick! ctx)]
     (is (= :active (:leash result)))

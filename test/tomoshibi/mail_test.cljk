@@ -10,9 +10,9 @@
      :value {:provider "cloudflare-email-routing"
              :provider_message_id "<q1@example.com>"
              :from "Seeker <seeker@example.com>"
-             :to ["tomoshibi@etzhayyim.com"]
+             :to ["tomoshibi@itonami.cloud"]
              :subject "教えてください"
-             :text "etzhayyim について知りたいです。"
+             :text "itonami について知りたいです。"
              :headers {}
              :received_at "2026-07-12T09:00:00Z"
              :spf "pass" :dkim "pass" :dmarc "pass"
@@ -71,7 +71,7 @@
 (deftest reply-message-threads-and-carries-opt-out
   (let [[{:keys [record]}] (vec (mail/parse-inbox worker-body))
         reply (mail/reply-message record "喜んでお答えします。"
-                                  {:from-email "tomoshibi@etzhayyim.com"})]
+                                  {:from-email "tomoshibi@itonami.cloud"})]
     (testing "reply goes to the inbound sender and no one else"
       (is (= ["seeker@example.com"]
              (mapv :mail.address/email (:mail/to reply))))
@@ -81,14 +81,14 @@
       (is (= "<q1@example.com>" (get (:mail/headers reply) "In-Reply-To")))
       (is (= "auto-replied" (get (:mail/headers reply) "Auto-Submitted")))
       (is (str/includes? (get (:mail/headers reply) "List-Unsubscribe")
-                         "tomoshibi@etzhayyim.com")))
+                         "tomoshibi@itonami.cloud")))
     (testing "subject is Re:-prefixed exactly once"
       (is (= "Re: 教えてください" (:mail/subject reply)))
       (is (= "Re: 教えてください"
              (:mail/subject (mail/reply-message
                              (assoc-in record [:mail.inbound/message :mail/subject]
                                        "Re: 教えてください")
-                             "x" {:from-email "tomoshibi@etzhayyim.com"})))))
+                             "x" {:from-email "tomoshibi@itonami.cloud"})))))
     (testing "the opt-out footer is REALLY in the body (the :opt-out-present?
               flag the governor sees is never asserted without it)"
       (let [body (get-in reply [:mail/parts 0 :mail.part/body])]
@@ -107,7 +107,7 @@
 
 (deftest send-request-is-resend-wire-with-headers
   (let [[{:keys [record]}] (vec (mail/parse-inbox worker-body))
-        reply (mail/reply-message record "body" {:from-email "tomoshibi@etzhayyim.com"})
+        reply (mail/reply-message record "body" {:from-email "tomoshibi@itonami.cloud"})
         req (mail/send-request reply)]
     (is (= "https://api.resend.com/emails" (:http/url req)))
     (is (= :post (:http/method req)))
@@ -115,10 +115,10 @@
     (testing "Resend requires STRING addresses — a named from must be
               flattened to \"Name <addr>\", never an {:email :name} object
               (live 422 otherwise)"
-      (is (= "tomoshibi (灯) <tomoshibi@etzhayyim.com>"
+      (is (= "tomoshibi (灯) <tomoshibi@itonami.cloud>"
              (get-in (mail/send-request
                       (mail/reply-message record "body"
-                                          {:from-email "tomoshibi@etzhayyim.com"
+                                          {:from-email "tomoshibi@itonami.cloud"
                                            :from-name "tomoshibi (灯)"}))
                      [:http/json :from])))
       (is (string? (get-in req [:http/json :from])))

@@ -14,7 +14,7 @@
         att {:createdAt "2026-07-12T00:00:00Z" :mode "digital"
              :optOutAffordancePresent true :coercionAttested false
              :minorSoloSolicitationAttested false :voluntaryAttested true
-             :attestingCellDid "did:web:etzhayyim.com:actor:tomoshibi"}]
+             :attestingCellDid "did:web:itonami.cloud:actor:tomoshibi"}]
     (is (= [] (store/all-attestations fs)))
     (store/record-attestation! fs att)
     (store/record-attestation! fs (assoc att :createdAt "2026-07-12T00:00:01Z"))

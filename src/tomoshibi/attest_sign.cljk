@@ -1,6 +1,6 @@
 (ns tomoshibi.attest-sign
   "Signed-head sigrefs over the attestation ledger — the RAD sigref pattern
-  (etzhayyim.kotoba-rad/sigref-datom precedent) applied to this actor's own
+  (itonami.kotoba-rad/sigref-datom precedent) applied to this actor's own
   evangelismActivityAttestation journal.
 
   The ledger rows stay EXACTLY lexicon-shaped (tomoshibi.store's contract with

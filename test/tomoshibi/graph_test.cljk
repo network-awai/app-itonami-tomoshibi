@@ -7,7 +7,7 @@
             [tomoshibi.store :as store]))
 
 (def now "2026-07-13T03:00:00Z")
-(def did "did:web:etzhayyim.com:actor:tomoshibi")
+(def did "did:web:itonami.cloud:actor:tomoshibi")
 (def request {:op :mail-reply})
 (def context {:actor-id did})
 

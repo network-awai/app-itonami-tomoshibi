@@ -1,17 +1,17 @@
-# com-etzhayyim-tomoshibi
+# app-itonami-tomoshibi
 
 tomoshibi (灯) — invitational evangelism digital-publication actor. See
 `README.md` for the core contract and `../root/CLAUDE.md` "Actors" section
 for the pattern this follows (containment + independent governor +
 append-only ledger). Parent decision record:
-`../root/90-docs/adr/2607061700-etzhayyim-active-evangelism-doctrine.md`
+`../root/90-docs/adr/2607061700-itonami-active-evangelism-doctrine.md`
 (Open Question 4). Design 正本: `docs/adr/0001-architecture.md` (R0 core) +
 `docs/adr/0002-mail-capability-and-murakumo-residency.md` (R1 email channel
 + resident agent; doctrine boundary in root ADR-2607121830).
 
 ## R1: the email channel (reply-only) + resident agent
 
-`tomoshibi@etzhayyim.com` receives via Cloudflare Email Routing → the
+`tomoshibi@itonami.cloud` receives via Cloudflare Email Routing → the
 `infra/mail-worker/` Worker stages into KV; the resident agent
 (`tomoshibi.daemon`, launchd on murakumo node zebulun, healthz
 127.0.0.1:13094) pulls, drafts via node-local Ollama
@@ -21,9 +21,9 @@ Outbound is REPLY-ONLY BY CONSTRUCTION: `tomoshibi.mail/reply-message` is
 the sole send constructor and requires an inbound record — cold outreach is
 unrepresentable, not merely prohibited. Attestation happens ONLY after a
 confirmed send. Stop requests (配信停止/unsubscribe/…) suppress the sender
-forever. The leash file (`~/.etzhayyim/tomoshibi/leash.edn`) is fail-closed
+forever. The leash file (`~/.itonami/tomoshibi/leash.edn`) is fail-closed
 and checked every tick; outer kill switches: disable the routing rule, or
-`sudo launchctl bootout system/com.etzhayyim.tomoshibi.agent`.
+`sudo launchctl bootout system/cloud.itonami.tomoshibi.agent`.
 
 ## Invariant
 
@@ -46,11 +46,11 @@ target-list (ADR-2606281500 rule 4).
   `.clj` only for JVM-only I/O — `cacao.clj` (self-sovereign Ed25519
   identity; faithful port of `kouhou.cacao`, `KeyPairGenerator "Ed25519"`
   needs a real JDK, confirmed not resolvable the same way from bb's SCI).
-- `bb.edn` **used to** add `../root/20-actors/etzhayyim-organism/src` as an
+- `bb.edn` **used to** add `../root/20-actors/itonami-organism/src` as an
   extra classpath entry; ADR-2607173000 deleted it when babashka was retired,
   and for a while nothing in `deps.edn` replaced it. `deps.edn`'s `:siblings`
-  alias does now (ADR-2608135000), and it points somewhere else: etzhayyim/root
-  drained `20-actors/etzhayyim-organism` on 2026-07-18 (`6ad7cd5`) and its
+  alias does now (ADR-2608135000), and it points somewhere else: itonami/root
+  drained `20-actors/itonami-organism` on 2026-07-18 (`6ad7cd5`) and its
   `MOVED.edn` names `kotoba-lang/kotodama` as the new home of the generic cljc
   organism sensors. Run tasks via `kbb --backend sci scripts/run-task.cljk <task>`, never
   `bb`; the aliases carry the classpath now, and drifting them apart from each

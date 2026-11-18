@@ -1,7 +1,7 @@
 # tomoshibi (灯) — Invitational Evangelism Publication Actor
 
-**DID**: `did:web:etzhayyim.com:actor:tomoshibi` (placeholder — not yet live-hosted, see MATURITY.md)
-**Namespace**: `com.etzhayyim.tomoshibi.*`
+**DID**: `did:web:itonami.cloud:actor:tomoshibi` (placeholder — not yet live-hosted, see MATURITY.md)
+**Namespace**: `cloud.itonami.tomoshibi.*`
 **ADR**: ADR-2607061700 (Mission Charter §1.16, Active Evangelism Doctrine) — this actor closes its Open Question 4
 **Status**: R0 scaffold (2026-07-06) — governor genuinely wired to `evangelism_gate`, no StateGraph/organizer/deploy yet (see MATURITY.md)
 
@@ -9,7 +9,7 @@
 
 tomoshibi (灯, "lamp" — Matthew 5:14-16, "let your light shine") is the actor
 responsible for proposing and gating **invitational content** — the digital
-half of etzhayyim's Active Evangelism Doctrine (Mission Charter §1.16). It is
+half of itonami's Active Evangelism Doctrine (Mission Charter §1.16). It is
 the first actor to genuinely wire
 `kotodama.organism.sensors.evangelism-gate` (the carve-out scanner closing
 ADR-2607061700 Open Question 2) into a real decision path.
@@ -26,7 +26,7 @@ Domain survey (ADR-2607061700, 2026-07-06 session) found no clean home:
 | Actor | Why not |
 |---|---|
 | kouhou (広報) | curates *external* public-sector/government info — different domain entirely |
-| kataribe (語部) | G6 STRUCTURAL `doctrinalMonopolyAttested const false` — cross-doctrinal by charter, in tension with promoting etzhayyim's own doctrine as invitation |
+| kataribe (語部) | G6 STRUCTURAL `doctrinalMonopolyAttested const false` — cross-doctrinal by charter, in tension with promoting itonami's own doctrine as invitation |
 | tashikame (確かめ) | fact-check verdict publisher — mixing recruitment pitches into fact-check output would undermine its neutrality |
 | yomi (読み) | news-intelligence digest — same mismatch as tashikame |
 | recruit | **secular job-posting aggregator** (ESCO/O*NET/EURES/HelloWork/USAJOBS) — unrelated to religious membership |
@@ -77,8 +77,8 @@ incomplete one.
 (def s (store/seed-db))
 (op/propose! s nil {:actor-id "tomoshibi"}
              {:effect :assessment :text "We're gathering..." :opt-out-present? true
-              :mode "digital" :actor-did "did:web:etzhayyim.com:actor:tomoshibi"}
-             "2026-07-06T09:00:00Z" "did:web:etzhayyim.com:actor:tomoshibi")
+              :mode "digital" :actor-did "did:web:itonami.cloud:actor:tomoshibi"}
+             "2026-07-06T09:00:00Z" "did:web:itonami.cloud:actor:tomoshibi")
 ;; => {:disposition :commit :verdict {...} :attestation {...}}
 (store/all-attestations s) ;; => [{...}]
 ```
@@ -123,10 +123,10 @@ ADR-2608135000 fixed them):
    conversion deleted the `bb.edn` that had supplied bb's classpath, so `bb`
    started with no `src`/`test` on it and failed with
    `Could not locate tomoshibi/agent_test…`.
-2. `tomoshibi.governor` required `etzhayyim-organism.sensors.evangelism-gate`,
+2. `tomoshibi.governor` required `itonami-organism.sensors.evangelism-gate`,
    which is not at the documented sibling path
-   `../root/20-actors/etzhayyim-organism/src`. That is true — but not because
-   the sensor is gone. `etzhayyim/root` **drained** that tree on 2026-07-18
+   `../root/20-actors/itonami-organism/src`. That is true — but not because
+   the sensor is gone. `itonami/root` **drained** that tree on 2026-07-18
    (commit `6ad7cd5`), leaving a `MOVED.edn` tombstone naming
    `kotoba-lang/kotodama` as the destination for its generic cljc organism
    sensors. The gate is at
@@ -152,7 +152,7 @@ exactly). The 18 tests / 48 assertions previously recorded here were an older,
 smaller suite, not a different result.
 
 The `:test` alias needs these west siblings on disk:
-`orgs/kotoba-lang/{kotodama,mail,mailer,langgraph}` and `orgs/etzhayyim/root`.
+`orgs/kotoba-lang/{kotodama,mail,mailer,langgraph}` and `orgs/itonami/root`.
 
 ## Run the agent
 
@@ -174,7 +174,7 @@ a bundled runtime does to a dependency list.
 
 ## Related
 
-- `../root/90-docs/adr/2607061700-etzhayyim-active-evangelism-doctrine.md` — parent ADR (Mission Charter §1.16), Open Question 4
-- `../../kotoba-lang/kotodama/src/kotodama/organism/sensors/evangelism_gate.cljc` — the wired sensor (moved out of `../root/20-actors/etzhayyim-organism/` on 2026-07-18, etzhayyim/root `6ad7cd5`)
-- `../root/00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/evangelismActivityAttestation.json` — the append-only activity ledger (Open Question 3) this actor's future publisher will write to
+- `../root/90-docs/adr/2607061700-itonami-active-evangelism-doctrine.md` — parent ADR (Mission Charter §1.16), Open Question 4
+- `../../kotoba-lang/kotodama/src/kotodama/organism/sensors/evangelism_gate.cljc` — the wired sensor (moved out of `../root/20-actors/itonami-organism/` on 2026-07-18, itonami/root `6ad7cd5`)
+- `../root/00-contracts/lexicons/cloud/itonami/apps/itonami/evangelismActivityAttestation.json` — the append-only activity ledger (Open Question 3) this actor's future publisher will write to
 - `MATURITY.md` — honest R0 framing; what's built vs. deferred

@@ -5,7 +5,7 @@
 
   leash.edn v1 (member-signed):
     {:v 1
-     :aud       \"did:web:etzhayyim.com:actor:tomoshibi\"  ; who is leashed
+     :aud       \"did:web:itonami.cloud:actor:tomoshibi\"  ; who is leashed
      :cap       \"evangelism-mail\"                         ; what is delegated
      :issued-at \"2026-07-13T…Z\"
      :expiry    \"2026-08-12T…Z\"                           ; dead-man renewal
@@ -29,7 +29,7 @@
   the deprecation.
 
   Signing/minting lives OFF-node with the member: scripts/leash_mint.cljk
-  (owner machine, member key at ~/.etzhayyim/member/ — never on the fleet
+  (owner machine, member key at ~/.itonami/member/ — never on the fleet
   node, never in the repo)."
   (:require [kotoba.lang.edn :as edn]
             [kotoba.lang.text :as str]))
@@ -39,7 +39,7 @@
   a leash whose :message diverges from its fields is invalid by construction
   (we rebuild, never trust an embedded copy)."
   [{:keys [v aud cap issued-at expiry by]}]
-  (str "etzhayyim leash v" v "\n"
+  (str "itonami leash v" v "\n"
        "aud: " aud "\n"
        "cap: " cap "\n"
        "issued-at: " issued-at "\n"

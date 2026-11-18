@@ -22,9 +22,9 @@
               :head "abc123" :by "did:key:zX" :sig "00ff" :at "now"} s))
       (is (= s (edn/read-string (pr-str s))))))
   (testing "unsigned records :sig nil under the fallback did (honest journal)"
-    (let [s (attest/sigref "abc123" nil "did:web:etzhayyim.com:actor:tomoshibi" "now")]
+    (let [s (attest/sigref "abc123" nil "did:web:itonami.cloud:actor:tomoshibi" "now")]
       (is (nil? (:sig s)))
-      (is (= "did:web:etzhayyim.com:actor:tomoshibi" (:by s))))))
+      (is (= "did:web:itonami.cloud:actor:tomoshibi" (:by s))))))
 
 (deftest signer-shape-validation
   (is (attest/valid-signer? {:by "did:key:z6MkvqXd" :sig "0a1b2c"}))

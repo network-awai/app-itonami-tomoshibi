@@ -16,7 +16,7 @@
     (is (suppress/stop-request? "" "受信拒否します"))
     (is (suppress/stop-request? "" "迷惑です")))
   (testing "ordinary inquiries do NOT trip it"
-    (is (not (suppress/stop-request? "質問" "etzhayyim とは何ですか?")))
+    (is (not (suppress/stop-request? "質問" "itonami とは何ですか?")))
     (is (not (suppress/stop-request? "hello" "what does your association believe?")))))
 
 (deftest suppression-journal-roundtrip
