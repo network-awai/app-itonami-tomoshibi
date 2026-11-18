@@ -1,0 +1,26 @@
+{
+  "name": "@itonami/tomoshibi-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "itonami": {
+    "id": "network.itonami.tomoshibi",
+    "title": "Tomoshibi",
+    "storageKey": "itonami.tomoshibi.v1",
+    "description": "灯 — 招きの便りを出す actor の、配信停止と会員のリード（許可）を、この端末で確かめます。受け取った文面が配信停止の求めかを判定し、停止の記録と照合し、リード（許可の記録）が有効かを判定します。メールの送受信はせず、外部へは何も送信しません。",
+    "cljsSources": [
+      "../src"
+    ],
+    "storeId": "network.itonami.tomoshibi"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "tauri": "tauri",
+    "build:desktop": "npm run build && tauri build --no-bundle",
+    "build:android": "sh scripts/android-apk.sh"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "3.0.0-alpha.6"
+  }
+}
