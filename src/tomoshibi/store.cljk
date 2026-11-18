@@ -11,8 +11,8 @@
   for the propose!/hold split.
 
   The record shape mirrors
-  `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/evangelismActivityAttestation.json`
-  in the sibling etzhayyim/root checkout exactly — every STRUCTURAL const
+  `00-contracts/lexicons/cloud/itonami/apps/itonami/evangelismActivityAttestation.json`
+  in the sibling itonami/root checkout exactly — every STRUCTURAL const
   field in the lexicon (optOutAffordancePresent/coercionAttested/
   minorSoloSolicitationAttested/voluntaryAttested) is pinned here too, not
   merely documented.")
@@ -36,7 +36,7 @@
   (governor `:ok? true`) proposal. `now` is caller-supplied (ISO-8601
   datetime string) to keep this function pure/testable — no
   `(java.time.Instant/now)` inside. `attesting-cell-did` is the actor's own
-  DID (`did:web:etzhayyim.com:actor:tomoshibi` once live; a placeholder
+  DID (`did:web:itonami.cloud:actor:tomoshibi` once live; a placeholder
   string is fine for R0, see MATURITY.md)."
   [proposal now attesting-cell-did]
   (let [mode (:mode proposal "digital")]

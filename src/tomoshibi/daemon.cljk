@@ -2,7 +2,7 @@
   "The resident entrypoint (bb) — binds tomoshibi.agent/tick!'s injected
   effects to the real world and loops forever. Residence is a launchd
   LaunchDaemon on a Murakumo fleet node (infra/launchd/
-  com.etzhayyim.tomoshibi.agent.plist), NEVER `nohup … &` (root CLAUDE.md
+  cloud.itonami.tomoshibi.agent.plist), NEVER `nohup … &` (root CLAUDE.md
   operational-code rule).
 
   Real I/O lives ONLY here:
@@ -21,8 +21,8 @@
     RESEND_API_KEY          outbound send
     TOMOSHIBI_OLLAMA_URL    default http://127.0.0.1:11434 (node-local)
     TOMOSHIBI_MODEL         default gemma4:12b-it-qat
-    TOMOSHIBI_STATE_DIR     default ~/.etzhayyim/tomoshibi
-    TOMOSHIBI_FROM          default tomoshibi@etzhayyim.com
+    TOMOSHIBI_STATE_DIR     default ~/.itonami/tomoshibi
+    TOMOSHIBI_FROM          default tomoshibi@itonami.cloud
     TOMOSHIBI_MAX_PER_DAY   default 20
     TOMOSHIBI_TICK_SECONDS  default 300
     TOMOSHIBI_HEALTHZ_PORT  default 13094"
@@ -71,7 +71,7 @@
 
 (defn config []
   (let [state-dir (env "TOMOSHIBI_STATE_DIR"
-                       (str (System/getProperty "user.home") "/.etzhayyim/tomoshibi"))]
+                       (str (System/getProperty "user.home") "/.itonami/tomoshibi"))]
     {:pull {:pull-url (env "TOMOSHIBI_PULL_URL" nil)
             :pull-token (env "TOMOSHIBI_PULL_TOKEN" nil)}
      :resend-key (env "RESEND_API_KEY" nil)
@@ -85,9 +85,9 @@
              :attestations (str state-dir "/attestations.journal.edn")
              :sigrefs (str state-dir "/attestations.sigrefs.journal.edn")
              :kotoba-journal (str state-dir "/attestations.kotoba.journal.edn")}
-     :cfg {:from-email (env "TOMOSHIBI_FROM" "tomoshibi@etzhayyim.com")
+     :cfg {:from-email (env "TOMOSHIBI_FROM" "tomoshibi@itonami.cloud")
            :from-name "tomoshibi (灯)"
-           :actor-did (env "TOMOSHIBI_ACTOR_DID" "did:web:etzhayyim.com:actor:tomoshibi")
+           :actor-did (env "TOMOSHIBI_ACTOR_DID" "did:web:itonami.cloud:actor:tomoshibi")
            :max-per-day (parse-long (env "TOMOSHIBI_MAX_PER_DAY" "20"))
            :max-per-tick 5
            :max-attempts 3
@@ -104,7 +104,7 @@
 
 (defn- open-store!
   "Attestation store backend. TOMOSHIBI_STORE=kotoba (default) → the
-  kotoba-Datom-log store (tomoshibi.kotoba-store over etzhayyim.kotoba.engine,
+  kotoba-Datom-log store (tomoshibi.kotoba-store over itonami.kotoba.engine,
   the repo-wide canonical-state substrate), seeded ONCE from the legacy
   FileStore rows so a backend switch never orphans ledger history; =file, or
   the engine missing from the classpath → FileStore. Fail-open: a storage
@@ -258,7 +258,7 @@
    :headers {"Content-Type" "application/json"}
    :body (json/generate-string
           (merge {:ok true :cell "TomoshibiEvangelismMailCell"
-                  :node (or (System/getenv "ETZHAYYIM_NODE_NAME") "unknown")}
+                  :node (or (System/getenv "ITONAMI_NODE_NAME") "unknown")}
                  @health))})
 
 (defn run-tick!

@@ -1,4 +1,4 @@
-// tomoshibi-mail — Cloudflare Email Worker for tomoshibi@etzhayyim.com.
+// tomoshibi-mail — Cloudflare Email Worker for tomoshibi@itonami.cloud.
 //
 // Two halves, mirroring cloud-itonami's mail-inbound Worker (the proven
 // pattern in this corpus) plus an authed pull API so the resident agent on
@@ -39,7 +39,7 @@ export default {
     const providerMessageId =
       parsed.messageId ||
       message.headers.get("message-id") ||
-      `<${crypto.randomUUID()}@tomoshibi-mail.etzhayyim>`;
+      `<${crypto.randomUUID()}@tomoshibi-mail.itonami>`;
 
     // `from` = RFC 5322 header From (who a human means by "the sender");
     // `envelope_from` = SMTP MAIL FROM (bounce/return-path — often an SES/

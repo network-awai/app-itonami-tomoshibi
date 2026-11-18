@@ -3,7 +3,7 @@
 - Status: accepted (landed 2026-07-12)
 - Deciders: Jun Kawasaki (founder directive, session 2026-07-12: 「メールアドレスの
   送受信の capability を持つように, murakumo で自律的永続的に ai agent が動くようにして」)
-- Parent doctrine: etzhayyim/root ADR-2607061700 (§1.16 Active Evangelism) +
+- Parent doctrine: itonami/root ADR-2607061700 (§1.16 Active Evangelism) +
   root ADR-2607121830 (email invitational-reply channel boundaries — the
   doctrinal companion to this architecture ADR)
 - Superproject registration: com-junkawasaki ADR-2607121900
@@ -11,10 +11,10 @@
 ## Context
 
 R0 (ADR 0001) shipped the EvangelismGovernor genuinely wired to
-`etzhayyim-organism.sensors.evangelism-gate`, an attestation writer, and a
+`itonami-organism.sensors.evangelism-gate`, an attestation writer, and a
 self-sovereign Ed25519 identity — but no publication channel, no organizer,
 and no residency. The founder directed R1 to be: a real mailbox
-(`tomoshibi@etzhayyim.com`, send AND receive) and a persistent autonomous
+(`tomoshibi@itonami.cloud`, send AND receive) and a persistent autonomous
 agent on the Murakumo fleet.
 
 Doctrinal note (full reasoning in root ADR-2607121830): the §1.16 actor
@@ -30,7 +30,7 @@ merely prohibited by policy.
 
 ```
 sender ── SMTP ──▶ Cloudflare Email Routing (MX, live since 2026-05-19)
-                       │ rule: tomoshibi@etzhayyim.com → worker  (rule id a5f16891…)
+                       │ rule: tomoshibi@itonami.cloud → worker  (rule id a5f16891…)
                        ▼
               tomoshibi-mail Worker (infra/mail-worker/)
                  email(): postal-mime parse → KV TOMOSHIBI_INBOX
@@ -39,14 +39,14 @@ sender ── SMTP ──▶ Cloudflare Email Routing (MX, live since 2026-05-19
                        ▲
                        │ HTTPS pull (TOMOSHIBI_PULL_TOKEN)
               resident agent on murakumo node zebulun
-                 launchd LaunchDaemon com.etzhayyim.tomoshibi.agent
+                 launchd LaunchDaemon cloud.itonami.tomoshibi.agent
                  kbb -m tomoshibi.daemon  (tick every 5 min, healthz :13094)
                  draft: node-local Ollama gemma4:12b-it-qat (Murakumo-only
                         allowlist, kouhou precedent)
                  gate:  tomoshibi.governor → evangelism-gate (+ charter-rider)
                        │
                        ▼ committed replies only
-              Resend API (etzhayyim.com verified, region ap-northeast-1,
+              Resend API (itonami.cloud verified, region ap-northeast-1,
                           domain id 4f4d2bc2…) ── SMTP ──▶ sender
 ```
 
@@ -76,7 +76,7 @@ the pre-send check).
 - **Leash actually gates** (first real wiring in this actor family —
   kouhou/tashikame document a leash in prose only): fail-closed leash file
   checked every tick; plus two outer kill layers (disable routing rule
-  a5f16891…; `sudo launchctl bootout system/com.etzhayyim.tomoshibi.agent`).
+  a5f16891…; `sudo launchctl bootout system/cloud.itonami.tomoshibi.agent`).
 - **Ledger is never a target-list**: evangelismActivityAttestation rows stay
   recipient-free; operational addressing lives only in the node-local
   processed/budget journals.
@@ -101,9 +101,9 @@ unaffected — sending an invitation email moves no funds, grants no access.
 - Registered in root fleet.edn (zebulun `:cells` + catalog) and cells.edn
   (`lan-api` kind, healthz 13094) so `kbb -M:fleet:probe` verifies residency.
 - Node layout mirrors the west superproject
-  (`~/tomoshibi/orgs/{etzhayyim/{root,com-etzhayyim-tomoshibi},kotoba-lang/{mail,mailer}}`)
+  (`~/tomoshibi/orgs/{itonami/{root,app-itonami-tomoshibi},kotoba-lang/{mail,mailer}}`)
   so bb.edn's relative classpath works unchanged.
-- State: `~/.etzhayyim/tomoshibi/*.journal.edn` (append-only EDN lines) +
+- State: `~/.itonami/tomoshibi/*.journal.edn` (append-only EDN lines) +
   `leash.edn`. Crash-safe: budget/dedup are counted from journals, so a
   restart cannot re-send or double-count.
 
@@ -121,7 +121,7 @@ Murakumo host allowlist; organism's crash-isolated tick.
 tayori (ADR-2607061500) is general correspondence *drafting* across
 email/Slack/WhatsApp with human-approved sends, org kotoba-lang. tomoshibi
 is evangelism-domain-only, replies only on its own mailbox, autonomous under
-the evangelism gate, org etzhayyim. No overlap in mailbox, org, governor, or
+the evangelism gate, org itonami. No overlap in mailbox, org, governor, or
 speech-act.
 
 ## Consequences
@@ -148,6 +148,6 @@ speech-act.
   a 1-minute cron granularity also fits a mailbox poorly. Dedicated daemon
   chosen (organism precedent).
 - **M365 Graph sendMail**: gftd policy deprecates it in favor of Resend
-  rails; and the actor's identity domain is etzhayyim.com.
+  rails; and the actor's identity domain is itonami.cloud.
 - **Actor-initiated outreach (cold email)**: rejected as outside the §1.16
   carve-out (aggregate-first), and deliberately left unrepresentable.

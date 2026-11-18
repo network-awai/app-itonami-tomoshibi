@@ -2,16 +2,16 @@
 
 honest framing: できていないことは「未」と明記する。
 
-- Actor: `did:web:etzhayyim.com:actor:tomoshibi` (placeholder, not live-hosted) · ADR-2607061700 (parent) · **R1: email channel + murakumo residency**
+- Actor: `did:web:itonami.cloud:actor:tomoshibi` (placeholder, not live-hosted) · ADR-2607061700 (parent) · **R1: email channel + murakumo residency**
 - 不変条件(全イテレーション厳守): 対人ではなく digital 招待発信のみを扱う(対人伝道は信者個人の実践であり本 actor の対象外) · governor 拒否のコンテンツは決して publish しない · aggregate-first — actor 起点の発信は集合的発信のみ。**email は reply-only の narrow 追加**(2026-07-12 founder 指示 + root ADR-2607121830): 受信起点の応答だけを許し、actor 起点の cold outreach は API 上表現不能に保つ · opt-out 常時提供(email では全返信に footer + List-Unsubscribe + suppression 永続) · coercion / 未成年単独勧誘は構造的に不可能 · コミットはユーザー明示時のみ
 
 ## 2026-07-06 — R0: EvangelismGovernor genuinely wired
 
 `src/tomoshibi/governor.cljk` — HARD gate calling
-`etzhayyim-organism.sensors.evangelism-gate/gate` directly (not an
+`itonami-organism.sensors.evangelism-gate/gate` directly (not an
 R0-illustrative marker placeholder like `tashikame.governor`/`kouhou.governor`'s
 denylists — this is the real sensor, imported via `bb.edn`'s extra classpath
-entry `../root/20-actors/etzhayyim-organism/src`). 9 tests / 19 assertions
+entry `../root/20-actors/itonami-organism/src`). 9 tests / 19 assertions
 green (`kbb run_tests.cljk`): clean-invitation-with-opt-out-flag commits,
 clean-invitation-with-textual-opt-out commits, missing-opt-out held,
 individual-vulnerability-targeting held, coercion held,
@@ -83,14 +83,14 @@ see below).
   the *leash* (a member-held revocation reference carried on each publish
   call, per ADR-2606111400) does not — there is no publish call yet for it
   to be carried on.
-- **`did:web:etzhayyim.com:actor:tomoshibi` is still not live.** `did.json`
+- **`did:web:itonami.cloud:actor:tomoshibi` is still not live.** `did.json`
   in `.well-known/` remains a static placeholder; the `did:key` this actor
   now genuinely generates is a *different* DID method from the `did:web`
   the manifest advertises (this mirrors kouhou/tashikame's own two-DID
   shape — did:key = actor's own signing identity; did:web = the
   human-facing discovery address once hosted).
 - **No RAD identity minting.** No `80-data/kotoba-rad/tomoshibi.identity.journal.edn`
-  entry in etzhayyim/root — deferred, matching the kouhou precedent
+  entry in itonami/root — deferred, matching the kouhou precedent
   ("RAD identity は...別 repo・別 commit").
 - **`store.cljc` is MemStore only — no kotoba Datom log backend yet.**
   Attestations live in an in-process atom; they do not survive a process
@@ -121,11 +121,11 @@ journals)· `agent.cljc`(1 bounded tick、全 effect 注入)· `daemon.clj`(bb
 常駐 entrypoint、healthz 127.0.0.1:13094)· `infra/mail-worker/`(CF Email
 Worker: postal-mime → KV staging + Bearer pull API)。
 
-Infra (live): Email Routing rule `tomoshibi@etzhayyim.com → tomoshibi-mail`
+Infra (live): Email Routing rule `tomoshibi@itonami.cloud → tomoshibi-mail`
 (rule a5f16891…)· KV `TOMOSHIBI_INBOX`(98a1f3a8…)· Resend domain
-etzhayyim.com(4f4d2bc2…、ap-northeast-1)· DNS 追加4件(resend._domainkey
+itonami.cloud(4f4d2bc2…、ap-northeast-1)· DNS 追加4件(resend._domainkey
 TXT / send MX+TXT / _dmarc TXT)。residency: zebulun 上の LaunchDaemon
-`com.etzhayyim.tomoshibi.agent`(root fleet.edn / cells.edn 登録、
+`cloud.itonami.tomoshibi.agent`(root fleet.edn / cells.edn 登録、
 `kbb -M:fleet:probe` で検証可能)。
 
 Tests: 43 tests / 164 assertions green(R0 の 18/48 から拡張)— HELD は送信も
@@ -162,10 +162,10 @@ R2 loop iteration 1-3(founder「next, setup loop」指示)。R1 の「依然 未
   (秘密鍵は node の `.tomoshibi/identity.edn`、mode 600、gitignored。
   reload byte-identical 検証済み。前提として zebulun に openjdk 26 + Clojure CLI
   を導入 — 将来の attestation 署名も node 上で可能に)。
-- **did:web live**: `did:web:etzhayyim.com:actor:tomoshibi` が
-  https://etzhayyim.com/actor/tomoshibi/did.json で解決(515 actor roster で初の
+- **did:web live**: `did:web:itonami.cloud:actor:tomoshibi` が
+  https://itonami.cloud/actor/tomoshibi/did.json で解決(515 actor roster で初の
   実 verificationMethod 入り。alsoKnownAs に did:key と mailto)。
-- **RAD identity**(ADR-2606231200): `etzhayyim/root` の
+- **RAD identity**(ADR-2606231200): `itonami/root` の
   `80-data/kotoba-rad/tomoshibi.identity.journal.edn` —
   RID `bafkreice23tmjwuymn4ronuilzrdedupdf2qlcek2xk37t2myd2krvuasi`
   (`rad:bafkreice23tmj…`)、tx2 で node-held did:key を cross-link。
@@ -178,7 +178,7 @@ member-CACAO leash 本実装 / kotoba Datom log store / StateGraph 化。
 
 attestation 台帳の row は lexicon 形のまま一切触れず、**並行 append-only journal
 `attestations.sigrefs.journal.edn`** に RAD sigref パターン
-(etzhayyim.kotoba-rad/sigref-datom 前例)で署名を積む: 1 committed attestation
+(itonami.kotoba-rad/sigref-datom 前例)で署名を積む: 1 committed attestation
 = 1 sigref、`:head` = attestation 行(pr-str)の sha256、`:sig` = node 保持
 did:key(z6MkvqXd…)の Ed25519 署名 hex。署名は JVM helper
 `scripts/sign_head.cljk`(kbb -M -m sign-head <head>)を send 成功時のみ
@@ -194,7 +194,7 @@ send-failure では決して発火しないことを含む。
 
 ## 2026-07-13 — R2 iteration 5: kotoba Datom log store(canonical substrate)
 
-`tomoshibi.kotoba-store` — `etzhayyim.kotoba.engine`(organism が使う同じ bb
+`tomoshibi.kotoba-store` — `itonami.kotoba.engine`(organism が使う同じ bb
 engine、repo-wide「state = kotoba Datom log」規則の canonical 経路)上の
 `Store` protocol 実装。1 attestation = 1 entity、entity id は
 `attestation:<sha256-head>`(sigref journal が署名するのと**同一 hash** —
@@ -223,7 +223,7 @@ leash が file-flag approximation から **member 署名付き delegation** に�
 issuer-mismatch で死ぬ。**leash は fail-closed**(helper 不調 = NOT ok —
 sigref の fail-open と対称)。revocation: file 削除(即時)/上書き/expiry
 放置(dead-man: 30日で自然失効、`scripts/leash_mint.cljk` で member が更新)。
-member 鍵は owner 機の `~/.etzhayyim/member/member.identity.edn`(600)のみ —
+member 鍵は owner 機の `~/.itonami/member/member.identity.edn`(600)のみ —
 node にも repo にも置かない。legacy v0 は migration 窓の間 active 扱い
 (boot 時 `:leash-legacy` 警告)。実測: valid → true / sig 改竄 → 拒否 /
 issuer 不一致 → 拒否。54 tests / 215 assertions green。
@@ -279,16 +279,16 @@ bb.edn が無いので laptop でも落ちる)。
 facade を外して初めて見えた欠落は 4 つ。**どれも「無い」のではなく「宣言されて
 いなかった」**:
 
-1. `tomoshibi.governor` が要求する evangelism gate は、etzhayyim/root が
-   2026-07-18 に `20-actors/etzhayyim-organism` を drain した際(`6ad7cd5`)、
+1. `tomoshibi.governor` が要求する evangelism gate は、itonami/root が
+   2026-07-18 に `20-actors/itonami-organism` を drain した際(`6ad7cd5`)、
    その `MOVED.edn` が名指すとおり `kotoba-lang/kotodama` へ移っていた。
    `kotodama.organism.sensors.evangelism-gate` に repoint(API は `gate`/`reason`
    のまま)。**依存が消えたのではなく、移動に追随していなかった。**
 2. `tomoshibi.mail` の `mail.inbound` / `mail.message` / `mailer.core` →
    `kotoba-lang/{mail,mailer}`。
 3. `tomoshibi.graph` の `langgraph.graph` → `kotoba-lang/langgraph`。
-4. `tomoshibi.kotoba-store` の `etzhayyim.kotoba.engine` →
-   `etzhayyim/root` の `70-tools/src`。
+4. `tomoshibi.kotoba-store` の `itonami.kotoba.engine` →
+   `itonami/root` の `70-tools/src`。
 
 加えて daemon は `babashka.http-client` / `babashka.process` / `cheshire` を
 require していたが、どこにも宣言が無かった — **babashka が同梱していたから宣言

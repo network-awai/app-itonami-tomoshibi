@@ -1,8 +1,8 @@
 (ns tomoshibi.run-tests
-  "Test runner for com-etzhayyim-tomoshibi (new actors ship run_tests.cljk, not
-  .sh — per etzhayyim/root CLAUDE.md). Canonical path:
+  "Test runner for app-itonami-tomoshibi (new actors ship run_tests.cljk, not
+  .sh — per itonami/root CLAUDE.md). Canonical path:
   `kbb run_tests.cljk` (bb.edn wires the classpath, including the sibling
-  etzhayyim/root sensors checkout and the kotoba-lang mail/mailer libs)."
+  itonami/root sensors checkout and the kotoba-lang mail/mailer libs)."
   (:require [kotoba.test :refer [run-tests]]
             [tomoshibi.agent-test]
             [tomoshibi.attest-sign-test]

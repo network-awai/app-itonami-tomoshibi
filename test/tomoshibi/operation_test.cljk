@@ -11,7 +11,7 @@
             [tomoshibi.store :as store]))
 
 (def ^:private now "2026-07-06T09:00:00Z")
-(def ^:private cell-did "did:web:etzhayyim.com:actor:tomoshibi")
+(def ^:private cell-did "did:web:itonami.cloud:actor:tomoshibi")
 
 (defn- fresh [] (store/seed-db))
 
@@ -82,11 +82,11 @@
     (let [s (fresh)
           r (run s "We're gathering this month to share what our community has been building. Everyone is welcome."
                   {:opt-out-present? true :mode "interpersonal"
-                   :adherent-did "did:web:etzhayyim.com:adherent:jun"
+                   :adherent-did "did:web:itonami.cloud:adherent:jun"
                    :interpersonal-method "face-to-face"})
           att (:attestation r)]
       (is (= :commit (:disposition r)))
-      (is (= "did:web:etzhayyim.com:adherent:jun" (:adherentDid att)))
+      (is (= "did:web:itonami.cloud:adherent:jun" (:adherentDid att)))
       (is (= "face-to-face" (:interpersonalMethod att)))
       (is (not (contains? att :actorDid))))))
 
@@ -95,7 +95,7 @@
 ;; ---------------------------------------------------------------------------
 
 (def ^:private lexicon-path
-  "../root/00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/evangelismActivityAttestation.json")
+  "../root/00-contracts/lexicons/cloud/itonami/apps/itonami/evangelismActivityAttestation.json")
 
 (deftest attestation-matches-real-lexicon-required-fields
   (testing "tomoshibi.store/lexicon-required-fields matches the actual lexicon file's `required` array"

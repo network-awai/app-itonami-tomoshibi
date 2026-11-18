@@ -25,9 +25,9 @@
   requires the evangelism gate directly and calls `eg/gate` on every proposed
   invitational text. This closes ADR-2607061700 Open Question 4.
 
-  The sensor used to live at etzhayyim-organism.sensors.evangelism-gate in
-  etzhayyim/root's 20-actors/etzhayyim-organism. On 2026-07-18 that tree was
-  drained (etzhayyim/root 6ad7cd5) and its generic cljc organism sensors moved
+  The sensor used to live at itonami-organism.sensors.evangelism-gate in
+  itonami/root's 20-actors/itonami-organism. On 2026-07-18 that tree was
+  drained (itonami/root 6ad7cd5) and its generic cljc organism sensors moved
   to kotoba-lang/kotodama, per the MOVED.edn tombstone that commit left behind.
   Nothing here followed, so the old symbol had been unresolvable — and nothing
   said so, because the only task that would have loaded this namespace was a

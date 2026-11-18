@@ -17,10 +17,10 @@
 
 (deftest v1-status-classification
   (let [now "2026-07-13T02:00:00Z"
-        base {:v 1 :aud "did:web:etzhayyim.com:actor:tomoshibi" :cap "evangelism-mail"
+        base {:v 1 :aud "did:web:itonami.cloud:actor:tomoshibi" :cap "evangelism-mail"
               :issued-at "2026-07-13T00:00:00Z" :expiry "2026-08-12T00:00:00Z"
               :by "did:key:z6MkMember" :sig "00ff"}
-        opts {:aud "did:web:etzhayyim.com:actor:tomoshibi"
+        opts {:aud "did:web:itonami.cloud:actor:tomoshibi"
               :issuer "did:key:z6MkMember" :now now}
         st (fn [m o] (tomoshibi.leash/status (pr-str m) o))]
     (testing "well-formed v1 → :signed (crypto handled by the cached verifier)"

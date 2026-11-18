@@ -1,7 +1,7 @@
 (ns tomoshibi.journal
   "Durable, file-backed operational state for the resident agent — append-only
   EDN-lines journals in the corpus's journal ethos. Three concerns, three
-  files (all under the agent's state dir, e.g. ~/.etzhayyim/tomoshibi/):
+  files (all under the agent's state dir, e.g. ~/.itonami/tomoshibi/):
 
     attestations.journal.edn — FileStore: the evangelismActivityAttestation
         ledger behind the SAME tomoshibi.store/Store protocol as MemStore
